@@ -76,7 +76,7 @@ jobs:
           FOD_API_URL: "https://api.emea.fortify.com/"
           FOD_TENANT: "emeademo"
           FOD_USER: "rajeshdemo"
-          FOD_PAT: "VlUweXdjMExtJ0R6YXthQ21Fa0QyTEdDfTRoN29N0"
+          FOD_PAT: "VEozQio4bGhSUEN1eUNJOVJHMDd3JFNUR3JqaHtq0"
           FOD_RELEASE_ID: "117177"
           FOD_UPLOADER_OPTS: "-ep 2 -pp 0 -I 1 -apf"
           FOD_UPLOADER_NOTES: 'Triggered by GitHub Actions (${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})'
@@ -88,7 +88,7 @@ jobs:
           fod_base_url: "https://emea.fortify.com/"
           fod_tenant: "emeademo"
           fod_user: "rajeshdemo"
-          fod_password: "VlUweXdjMExtJ0R6YXthQ21Fa0QyTEdDfTRoN29N0"
+          fod_password: "VEozQio4bGhSUEN1eUNJOVJHMDd3JFNUR3JqaHtq0"
           fod_release_id: "117177"
 
       # Import Fortify on Demand results to GitHub Security Code Scanning
