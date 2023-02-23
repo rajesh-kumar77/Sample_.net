@@ -48,10 +48,20 @@ jobs:
         with:
           java-version: 11
           distribution: 'zulu'
+      # Install the .NET Core workload
+      - name: Install .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
       - name: Build app for release
         run: msbuild D:\a\Sample_.net\Sample_.net\WebGoat.NET.sln -t:rebuild -property:Configuration=Debug
+        env:
+          Appx_Bundle: Always
+          Appx_Bundle_Platforms: x86|x64
+          Appx_Package_Build_Mode: StoreUpload
+          Configuration: ${{ matrix.configuration }}
       # Prepare source+dependencies for upload. The default example is for a Maven project that uses pom.xml.
       # TODO: Update PACKAGE_OPTS based on the ScanCentral Client documentation for your project's included tech stack(s). Helpful hints:
       #   ScanCentral Client will download dependencies for maven (-bt mvn) and gradle (-bt gradle).
