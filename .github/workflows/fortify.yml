@@ -50,9 +50,8 @@ jobs:
           distribution: 'zulu'
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
-    with:
+        with:
           vs-version: '16.11.2'
-  
       # Prepare source+dependencies for upload. The default example is for a Maven project that uses pom.xml.
       # TODO: Update PACKAGE_OPTS based on the ScanCentral Client documentation for your project's included tech stack(s). Helpful hints:
       #   ScanCentral Client will download dependencies for maven (-bt mvn) and gradle (-bt gradle).
