@@ -50,8 +50,8 @@ jobs:
           distribution: 'zulu'
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
-        with:
-          vs-version: '16.11.2'
+      - name: Build app for release
+        run: msbuild WebGoat.NET.sln -t:rebuild -property:Configuration=Debnug
       # Prepare source+dependencies for upload. The default example is for a Maven project that uses pom.xml.
       # TODO: Update PACKAGE_OPTS based on the ScanCentral Client documentation for your project's included tech stack(s). Helpful hints:
       #   ScanCentral Client will download dependencies for maven (-bt mvn) and gradle (-bt gradle).
@@ -62,7 +62,7 @@ jobs:
       - name: Download Fortify ScanCentral Client
         uses: fortify/gha-setup-scancentral-client@5b7382f8234fb9840958c49d5f32ae854115f9f3
       - name: Package Code + Dependencies
-        run: scancentral package -bt msbuild -bf WebGoat.NET.sln -o package.zip
+        run: scancentral package -bt none -o package.zip
         env:
           PACKAGE_OPTS: "-bt msbuild -bf WebGoat.NET.sln"
 
