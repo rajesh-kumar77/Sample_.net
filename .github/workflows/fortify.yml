@@ -66,7 +66,7 @@ jobs:
       - name: Download Fortify ScanCentral Client
         uses: fortify/gha-setup-scancentral-client@5b7382f8234fb9840958c49d5f32ae854115f9f3
       - name: Package Code + Dependencies
-        run: scancentral package $PACKAGE_OPTS -o package.zip
+        run: scancentral package -bt msbuild -bf D:/a/Sample_.net/Sample_.net/WebGoat.NET.sln -o package.zip
         env:
           PACKAGE_OPTS: "-bt msbuild -bf D:/a/Sample_.net/Sample_.net/WebGoat.NET.sln"
 
