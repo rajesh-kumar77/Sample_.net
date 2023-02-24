@@ -23,9 +23,6 @@ on:
   workflow_dispatch:
   push:
     branches: [ "cj" ]
-  schedule:
-    - cron: '26 21 * * 1'
-
 jobs:
   FoD-SAST-Scan:
     # Use the appropriate runner for building your source code.
@@ -35,7 +32,9 @@ jobs:
       actions: read
       contents: read
       security-events: write
-
+    env:
+      Wap_Project_Path: D:\a\Sample_.net\Sample_.net\
+    
     steps:
       # Check out source code
       - name: Check Out Source Code
@@ -67,9 +66,9 @@ jobs:
       - name: Download Fortify ScanCentral Client
         uses: fortify/gha-setup-scancentral-client@5b7382f8234fb9840958c49d5f32ae854115f9f3
       - name: Package Code + Dependencies
-        run: scancentral package -bt msbuild -bf WebGoat.NET.sln -o package.zip
+        run: scancentral package $PACKAGE_OPTS -o package.zip
         env:
-          PACKAGE_OPTS: "-bt msbuild -bf WebGoat.NET.sln"
+          PACKAGE_OPTS: "-bt msbuild -bf D:/a/Sample_.net/Sample_.net/WebGoat.NET.sln"
 
       # Start Fortify on Demand SAST scan and wait until results complete. For more information on FoDUploader commands, see https://github.com/fod-dev/fod-uploader-java
       # TODO: Update ENV variables for your application and create the necessary GitHub Secrets.  Helpful hints:
@@ -78,7 +77,7 @@ jobs:
       - name: Download Fortify on Demand Universal CI Tool
         uses: fortify/gha-setup-fod-uploader@6e6bb8a33cb476e240929fa8ebc739ff110e7433
       - name: Perform SAST Scan
-        run: java -jar "C:\Users\runneradmin\AppData\Local\Fortify\" -z package.zip -aurl $FOD_API_URL -purl $FOD_URL -rid "$FOD_RELEASE_ID" -tc "$FOD_TENANT" -uc "$FOD_USER" "$FOD_PAT" -ep "SubscriptionOnly"
+        run: java -jar $FOD_UPLOAD_JAR -z package.zip -aurl $FOD_API_URL -purl $FOD_URL -rid "$FOD_RELEASE_ID" -tc "$FOD_TENANT" -uc "$FOD_USER" "$FOD_PAT" -ep "SubscriptionOnly"
         env:
           FOD_URL: "https://emea.fortify.com/"
           FOD_API_URL: "https://api.emea.fortify.com/"
